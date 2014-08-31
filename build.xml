@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Oct 27, 2013 7:35:08 AM                                                        
+
+     cs6380    
+     description
+                   
+     mark                                                                
+     ====================================================================== -->
+<project name="cs6380" default="compile">
+    <description>
+            description
+    </description>
+	<property name="src" location="src"/>
+	<property name="build" location="bin"/>
+	<property name="dist"  location="dist"/>
+
+	<target name="init" description="desription">
+		<tstamp/>
+		<mkdir dir="${build}"/>
+	</target>
+	
+    <target name="compile" depends="init" description="Compiles the source into Java .class files">
+    	<!-- Compile the java code from ${src} into ${build} -->
+    	<javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+            <classpath>
+                  <!--<pathelement path="${classpath}"/>-->
+                  <fileset dir="lib">
+                    <include name="**/*.jar"/>
+                  </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile" description="Builds a JAR file for distributing">
+    	<jar jarfile="${dist}/cs6380-simulator.jar" basedir="${build}">
+    		<manifest>
+    			<attribute name="Main-Class" value="cs6380simulator.Controller" />
+    		</manifest>
+    	</jar>
+    </target>
+	
+	<target name="clean" description="Removes all compiled files" >
+	    <delete dir="${build}"/>
+	    <delete dir="${dist}"/>
+	  </target>
+
+</project>
